@@ -9,4 +9,4 @@ jspm_packages
 .webpack
 
 # tmp folder for temporary data holding
-tmp/
+# tmp/
