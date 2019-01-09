@@ -7,8 +7,12 @@
     "offline": "sls offline start --port 8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "adm-zip": "^0.4.13",
+    "aws-sdk": "^2.384.0"
+  },
   "devDependencies": {
+    "@types/adm-zip": "^0.4.31",
     "@types/aws-lambda": "8.10.1",
     "@types/node": "^8.0.57",
     "serverless-offline": "^3.31.3",
