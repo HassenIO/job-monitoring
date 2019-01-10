@@ -5,6 +5,7 @@
   "main": "handler.js",
   "scripts": {
     "offline": "sls offline start --port 8080",
+    "f:upload": "sls invoke local -f upload -p events/s3-upload.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

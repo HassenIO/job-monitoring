@@ -8,17 +8,31 @@ plugins:
 provider:
   name: aws
   runtime: nodejs8.10
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  environment:
+    AWS_ACCOUNT_ID: ${self:custom.secrets.AWS_ACCOUNT_ID}
+    AWS_REGION: ${self:provider.region}
+    AWS_QUEUE_NAME: ${self:custom.queueName}
 
 custom:
-  stage: ${opt:stage, 'dev'}
+  secrets: ${file(secrets.yml):${self:provider.stage}}
+  queueName: afa-${self:provider.stage}-pop-rs-queue
 
 functions:
   upload:
     handler: src/upload.run
     events:
       - s3:
-          bucket: afa-${self:custom.stage}-pop-rs
+          bucket: afa-${self:provider.stage}-pop-rs
           event: s3:ObjectCreated:*
           rules:
             - prefix: uploads/
             - suffix: .zip
+
+resources:
+  Resources:
+    MyQueue:
+      Type: 'AWS::SQS::Queue'
+      Properties:
+        QueueName: ${self:custom.queueName}
